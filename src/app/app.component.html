@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="card bg-dark text-white m-3 mt-5">
+    <h5 class="card-header text-center">
+      <img src="../assets/icon.jpg" alt="" width="30" height="30" class="mr-2" />
+      Practice Signup Form
+    </h5>
+    <div class="card-body">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label>First Name</label>
+            <input type="text" class="form-control" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && form.firstName.errors }">
+            <div *ngIf="form.firstName.touched && form.firstName.errors" class="text-warning">
+              <div *ngIf="form.firstName.errors.required">
+                First Name is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-6">
+            <label>Last Name</label>
+            <input type="text" class="form-control" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && form.lastName.errors }">
+            <div *ngIf="form.lastName.touched && form.lastName.errors" class="text-warning">
+              <div *ngIf="form.lastName.errors.required">
+                Last Name is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && form.email.errors }">
+          <div *ngIf="form.email.touched && form.email.errors" class="text-warning">
+            <div *ngIf="form.email.errors.required">
+              Email is required
+            </div>
+            <div *ngIf="form.email.errors.email">
+              Email must be a valid email address
+            </div>
+          </div>
+        </div>
+
+        <!-- just for learning purpose as we can do validations in ng-container also
+        <ng-container *ngIf="form.email.touched && form.email.errors">
+          <div *ngIf="form.email.errors.required" class="text-danger">
+            Value is required.
+          </div>
+        </ng-container> -->
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && form.password.errors }">
+            <div *ngIf="form.password.touched && form.password.errors" class="text-warning">
+              <div *ngIf="form.password.errors.required">
+                Password is required
+              </div>
+              <div *ngIf="form.password.errors.minlength">
+                Password must be at least 6 characters
+              </div>
+            </div>
+          </div>
+          <div class="form-group col">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted && form.confirmPassword.errors }">
+            <div *ngIf="form.confirmPassword.touched && form.confirmPassword.errors" class="text-warning">
+              <div *ngIf="form.confirmPassword.errors.required">
+                Confirm Password is required
+              </div>
+              <div *ngIf="form.confirmPassword.errors.mustmatch">
+                Passwords must match
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" id="acceptTerms" class="form-check-input" formControlName="acceptTerms" [ngClass]="{ 'is-invalid': submitted && form.acceptTerms.errors }">
+          <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+          <div *ngIf="submitted && form.acceptTerms.errors" class="text-warning">
+            Accept Ts & Cs is required
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-success btn-lg px-4 mr-3" >Register</button>
+          <button class="btn btn-warning btn-lg" type="reset" (click)="onReset()">Reset</button>
+          <p class="text white">Value: {{ registerForm.value | json }}</p>
+          <p class="text white">Value: {{ registerForm.valid | json }}</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
